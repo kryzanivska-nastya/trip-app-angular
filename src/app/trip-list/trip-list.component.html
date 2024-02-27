@@ -1,10 +1,58 @@
-<div class="trip-list">
-  <p>Weather <b>Forecast</b></p>
+<!-- <div class="trip-list-container">
+  <button
+    (click)="previous()"
+    class="scroll-button"
+    [disabled]="currentIndex === 0"
+  >
+    Previous
+  </button>
+  <div class="trip-list">
+    <p>Weather <b>Forecast</b></p>
+    <div class="trip-thumbnails">
+      <div
+        *ngFor="let trip of trips; let i = index"
+        class="trip-thumbnail"
+        [class.selected]="i === selectedIndex"
+        (click)="mouseSelect(i)"
+      >
+        <img src="/Users/admin/Downloads/madrid.jpg" alt="Trip Image" />
+        <div class="trip-info">
+          <p>{{ trip.destination }}</p>
+          <p>{{ trip.startDate }} to {{ trip.endDate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    (click)="next()"
+    class="scroll-button"
+    [disabled]="
+      currentIndex >= trips.length - numTripsToShow ||
+      trips.length <= numTripsToShow
+    "
+  >
+    Next
+  </button>
+</div> -->
+<div class="city-list">
+  <p>Select a city:</p>
   <ul>
-    <li *ngFor="let trip of trips" (click)="selectTrip(trip)">
-      {{ trip.destination }}
-      <br />
-      {{ trip.startDate }} to {{ trip.endDate }}
+    <li
+      *ngFor="let city of cities"
+      (click)="selectCity(city)"
+      [class.selected]="selectedCity === city"
+    >
+      {{ city }}
+    </li>
+  </ul>
+</div>
+
+<div class="forecast-details" *ngIf="selectedCity && forecasts[selectedCity]">
+  <h2>Forecast for {{ selectedCity }}</h2>
+  <ul>
+    <li *ngFor="let forecast of forecasts[selectedCity].list">
+      {{ forecast.dt_txt }}: {{ forecast.weather[0].description }},
+      {{ forecast.main.temp }}°C
     </li>
   </ul>
 </div>

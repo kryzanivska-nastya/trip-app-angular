@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class WeatherService {
-  
-  
+export class WeatherService implements OnInit {
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 }

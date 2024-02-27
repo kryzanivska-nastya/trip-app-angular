@@ -1,25 +1,18 @@
-.trip-list {
-    max-height: 300px; 
-    overflow-y: auto; 
-    font-family: sans-serif;
+.trip-thumbnail {
+    display: inline-block;
+    width: 150px;
+    margin-right: 10px;
+    cursor: pointer;
   }
   
-  .trip-list ul {
-    list-style-type: none; 
-    padding: 0;
+  .trip-thumbnail img {
+    width: 100%;
   }
   
-  .trip-list li {
-    cursor: pointer; 
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #f2f2f2; 
+  .trip-info {
+    text-align: center;
   }
   
-  .trip-list li:hover {
-    background-color: #ddd; 
-  }
-
-  .trip-list p{
-    font-size: 25px;
+  .selected {
+    border: 2px solid rgb(83, 83, 219);
   }
