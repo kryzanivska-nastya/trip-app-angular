@@ -1,1 +1,5 @@
-<p>weather-display works!</p>
+<div *ngIf="trip">
+  <h2>Weather Forecast for {{ trip.destination }}</h2>
+
+  <p>Weather forecast will be displayed here.</p>
+</div>

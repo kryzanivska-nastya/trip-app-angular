@@ -1,0 +1,25 @@
+.trip-list {
+    max-height: 300px; 
+    overflow-y: auto; 
+    font-family: sans-serif;
+  }
+  
+  .trip-list ul {
+    list-style-type: none; 
+    padding: 0;
+  }
+  
+  .trip-list li {
+    cursor: pointer; 
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f2f2f2; 
+  }
+  
+  .trip-list li:hover {
+    background-color: #ddd; 
+  }
+
+  .trip-list p{
+    font-size: 25px;
+  }

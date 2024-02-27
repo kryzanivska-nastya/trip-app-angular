@@ -1,1 +1,10 @@
-<p>trip-list works!</p>
+<div class="trip-list">
+  <p>Weather <b>Forecast</b></p>
+  <ul>
+    <li *ngFor="let trip of trips" (click)="selectTrip(trip)">
+      {{ trip.destination }}
+      <br />
+      {{ trip.startDate }} to {{ trip.endDate }}
+    </li>
+  </ul>
+</div>
