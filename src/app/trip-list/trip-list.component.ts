@@ -22,7 +22,7 @@ export class TripListComponent {
   }
 
   fetchForecast(city: string) {
-    const apiKey = 'a34fd66ab848c6cb496adbcd08d7ea44';
+    const apiKey = 'api_key';
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
 
     fetch(url)
