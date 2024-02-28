@@ -1,1 +1,21 @@
+<h2>Add New Trip</h2>
 
+<div>
+  <label for="city">Choose a city:</label>
+  <select id="city" name="city" [(ngModel)]="selectedCity">
+    <option *ngFor="let city of data.cities" [value]="city">{{ city }}</option>
+  </select>
+</div>
+
+<div>
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" />
+</div>
+
+<div>
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" />
+</div>
+
+<button (click)="addTrip()">Add Trip</button>
+<button (click)="closeModal()">Cancel</button>

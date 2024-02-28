@@ -7,15 +7,6 @@
     />
   </div>
 
-  <div class="default-cities">
-    <h2>Default Cities</h2>
-    <ul>
-      <li *ngFor="let city of defaultCities" (click)="selectDefaultCity(city)">
-        {{ city }}
-      </li>
-    </ul>
-  </div>
-
   <div class="trip-list">
     <h2>Trips</h2>
     <ul>
@@ -24,6 +15,8 @@
       </li>
     </ul>
   </div>
+
+  <button (click)="openAddTripModal()">Add Trip</button>
 
   <div
     class="forecast-details"

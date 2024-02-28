@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { WeatherService } from '../weather.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalWindowComponent } from '../modal-window/modal-window.component';
 
 @Component({
   selector: 'app-trip-list',
@@ -10,11 +11,16 @@ import { WeatherService } from '../weather.service';
   styleUrl: './trip-list.component.css',
 })
 export class TripListComponent {
-  defaultCities = ['Madrid', 'Paris', 'New York'];
-
   trips = [
     { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
+    {
+      destination: 'Barcelona',
+      startDate: '2024-04-03',
+      endDate: '2024-04-10',
+    },
   ];
+
+  predefinedCities = ['Madrid', 'Barcelona', 'Paris', 'London'];
 
   selectedTrip: any;
   forecasts: any = {};
@@ -22,8 +28,22 @@ export class TripListComponent {
   todayForecast: any;
   countdownTimer: string = '';
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.filteredTrips = this.trips.slice();
+  }
+
+  openAddTripModal() {
+    const dialogRef = this.dialog.open(ModalWindowComponent, {
+      width: '400px',
+      data: {
+        cities: this.predefinedCities,
+      },
+    });
+
+    dialogRef.componentInstance.tripAdded.subscribe((newTrip: any) => {
+      this.trips.push(newTrip);
+      this.filteredTrips = this.trips.slice();
+    });
   }
 
   selectTrip(trip: any) {
@@ -64,7 +84,7 @@ export class TripListComponent {
         return response.json();
       })
       .then((data) => {
-        this.todayForecast = data;
+        this.todayForecast = data.days[0];
       })
       .catch((error) => {
         console.error("Error fetching today's forecast:", error);
@@ -75,8 +95,17 @@ export class TripListComponent {
     const currentDate = new Date();
     const tripStartDate = new Date(startDate);
     const timeDifference = tripStartDate.getTime() - currentDate.getTime();
-    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-    this.countdownTimer = `${daysDifference} days until the trip`;
+
+    let remainingTime = timeDifference / 1000;
+    const days = Math.floor(remainingTime / (3600 * 24));
+    remainingTime -= days * 3600 * 24;
+    const hours = Math.floor(remainingTime / 3600);
+    remainingTime -= hours * 3600;
+    const minutes = Math.floor(remainingTime / 60);
+    remainingTime -= minutes * 60;
+    const seconds = Math.floor(remainingTime);
+
+    this.countdownTimer = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
   }
 
   search(event: any) {
@@ -85,11 +114,5 @@ export class TripListComponent {
     this.filteredTrips = this.trips.filter((trip) =>
       trip.destination.toLowerCase().includes(query)
     );
-  }
-
-  selectDefaultCity(city: string) {
-    const startDate = '2024-03-05';
-    const endDate = '2024-03-10';
-    this.selectTrip({ destination: city, startDate, endDate });
   }
 }

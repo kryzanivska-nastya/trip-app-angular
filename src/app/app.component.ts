@@ -6,7 +6,6 @@ import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { ModalWindowComponent } from './modal-window/modal-window.component';
 import { WeatherDisplayComponent } from './weather-display/weather-display.component';
 import { HttpClientModule } from '@angular/common/http';
-import { WeatherService } from './weather.service';
 import { EnvironmentInjector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -15,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [WeatherService],
+  providers: [],
   imports: [
     CommonModule,
     RouterOutlet,
