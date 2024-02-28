@@ -13,11 +13,6 @@ import { ModalWindowComponent } from '../modal-window/modal-window.component';
 export class TripListComponent {
   trips = [
     { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
-    {
-      destination: 'Barcelona',
-      startDate: '2024-04-03',
-      endDate: '2024-04-10',
-    },
   ];
 
   predefinedCities = ['Madrid', 'Barcelona', 'Paris', 'London'];
@@ -30,6 +25,7 @@ export class TripListComponent {
 
   constructor(private dialog: MatDialog) {
     this.filteredTrips = this.trips.slice();
+    this.sortTripsByStartDate();
   }
 
   openAddTripModal() {
@@ -43,6 +39,7 @@ export class TripListComponent {
     dialogRef.componentInstance.tripAdded.subscribe((newTrip: any) => {
       this.trips.push(newTrip);
       this.filteredTrips = this.trips.slice();
+      this.sortTripsByStartDate();
     });
   }
 
@@ -114,5 +111,12 @@ export class TripListComponent {
     this.filteredTrips = this.trips.filter((trip) =>
       trip.destination.toLowerCase().includes(query)
     );
+    this.sortTripsByStartDate();
+  }
+
+  private sortTripsByStartDate() {
+    this.filteredTrips.sort((a, b) => {
+      return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+    });
   }
 }
