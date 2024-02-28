@@ -1,58 +1,53 @@
-<!-- <div class="trip-list-container">
-  <button
-    (click)="previous()"
-    class="scroll-button"
-    [disabled]="currentIndex === 0"
-  >
-    Previous
-  </button>
-  <div class="trip-list">
-    <p>Weather <b>Forecast</b></p>
-    <div class="trip-thumbnails">
-      <div
-        *ngFor="let trip of trips; let i = index"
-        class="trip-thumbnail"
-        [class.selected]="i === selectedIndex"
-        (click)="mouseSelect(i)"
-      >
-        <img src="/Users/admin/Downloads/madrid.jpg" alt="Trip Image" />
-        <div class="trip-info">
-          <p>{{ trip.destination }}</p>
-          <p>{{ trip.startDate }} to {{ trip.endDate }}</p>
-        </div>
-      </div>
-    </div>
+<div class="container">
+  <div class="search">
+    <input
+      type="text"
+      placeholder="Search for a trip..."
+      (input)="search($event)"
+    />
   </div>
-  <button
-    (click)="next()"
-    class="scroll-button"
-    [disabled]="
-      currentIndex >= trips.length - numTripsToShow ||
-      trips.length <= numTripsToShow
-    "
+
+  <div class="default-cities">
+    <h2>Default Cities</h2>
+    <ul>
+      <li *ngFor="let city of defaultCities" (click)="selectDefaultCity(city)">
+        {{ city }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="trip-list">
+    <h2>Trips</h2>
+    <ul>
+      <li *ngFor="let trip of filteredTrips" (click)="selectTrip(trip)">
+        {{ trip.destination }} ({{ trip.startDate }} to {{ trip.endDate }})
+      </li>
+    </ul>
+  </div>
+
+  <div
+    class="forecast-details"
+    *ngIf="selectedTrip && forecasts[selectedTrip.destination]"
   >
-    Next
-  </button>
-</div> -->
-<div class="city-list">
-  <p>Select a city:</p>
-  <ul>
-    <li
-      *ngFor="let city of cities"
-      (click)="selectCity(city)"
-      [class.selected]="selectedCity === city"
-    >
-      {{ city }}
-    </li>
-  </ul>
+    <h2>Forecast for {{ selectedTrip.destination }}</h2>
+    <ul>
+      <li *ngFor="let day of forecasts[selectedTrip.destination]?.days">
+        {{ day.datetime }}: {{ day.conditions }}, {{ day.tempmax }}°C /
+        {{ day.tempmin }}°C
+      </li>
+    </ul>
+  </div>
 </div>
 
-<div class="forecast-details" *ngIf="selectedCity && forecasts[selectedCity]">
-  <h2>Forecast for {{ selectedCity }}</h2>
-  <ul>
-    <li *ngFor="let forecast of forecasts[selectedCity].list">
-      {{ forecast.dt_txt }}: {{ forecast.weather[0].description }},
-      {{ forecast.main.temp }}°C
-    </li>
-  </ul>
+<div class="today-forecast" *ngIf="selectedTrip && todayForecast">
+  <h2>Today's Weather in {{ selectedTrip.destination }}</h2>
+  <p>Conditions: {{ todayForecast.conditions }}</p>
+  <p>
+    Temperature: {{ todayForecast.tempmax }}°C / {{ todayForecast.tempmin }}°C
+  </p>
+</div>
+
+<div class="countdown-timer" *ngIf="selectedTrip">
+  <h2>Countdown Timer</h2>
+  <p>{{ countdownTimer }}</p>
 </div>

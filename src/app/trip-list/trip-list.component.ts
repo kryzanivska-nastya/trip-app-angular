@@ -10,20 +10,32 @@ import { WeatherService } from '../weather.service';
   styleUrl: './trip-list.component.css',
 })
 export class TripListComponent {
-  cities = ['Madrid', 'Paris', 'New York'];
-  selectedCity: string | null = null;
-  forecasts: any = {};
+  defaultCities = ['Madrid', 'Paris', 'New York'];
 
-  selectCity(city: string) {
-    this.selectedCity = city;
-    if (!this.forecasts[city]) {
-      this.fetchForecast(city);
-    }
+  trips = [
+    { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
+  ];
+
+  selectedTrip: any;
+  forecasts: any = {};
+  filteredTrips: any[];
+  todayForecast: any;
+  countdownTimer: string = '';
+
+  constructor() {
+    this.filteredTrips = this.trips.slice();
   }
 
-  fetchForecast(city: string) {
-    const apiKey = 'api_key';
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+  selectTrip(trip: any) {
+    this.selectedTrip = trip;
+    this.fetchForecast(trip.destination, trip.startDate, trip.endDate);
+    this.fetchTodayForecast(trip.destination);
+    this.calculateCountdown(trip.startDate);
+  }
+
+  fetchForecast(city: string, startDate: string, endDate: string) {
+    const apiKey = '5JPNVGTXYQPBQ8YBGBNJJ2SYQ';
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${endDate}?unitGroup=metric&include=days&key=${apiKey}&contentType=json`;
 
     fetch(url)
       .then((response) => {
@@ -39,52 +51,45 @@ export class TripListComponent {
         console.error('Error fetching forecast:', error);
       });
   }
+
+  fetchTodayForecast(city: string) {
+    const apiKey = '5JPNVGTXYQPBQ8YBGBNJJ2SYQ';
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/today?unitGroup=metric&include=days&key=${apiKey}&contentType=json`;
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.todayForecast = data;
+      })
+      .catch((error) => {
+        console.error("Error fetching today's forecast:", error);
+      });
+  }
+
+  calculateCountdown(startDate: string) {
+    const currentDate = new Date();
+    const tripStartDate = new Date(startDate);
+    const timeDifference = tripStartDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    this.countdownTimer = `${daysDifference} days until the trip`;
+  }
+
+  search(event: any) {
+    const query =
+      (event.target as HTMLInputElement)?.value.trim().toLowerCase() || '';
+    this.filteredTrips = this.trips.filter((trip) =>
+      trip.destination.toLowerCase().includes(query)
+    );
+  }
+
+  selectDefaultCity(city: string) {
+    const startDate = '2024-03-05';
+    const endDate = '2024-03-10';
+    this.selectTrip({ destination: city, startDate, endDate });
+  }
 }
-// export class TripListComponent {
-//   trips = [
-//     { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
-//     { destination: 'Paris', startDate: '2024-03-12', endDate: '2024-03-17' },
-//     { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
-//     { destination: 'Paris', startDate: '2024-03-12', endDate: '2024-03-17' },
-//     { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
-//     { destination: 'Paris', startDate: '2024-03-12', endDate: '2024-03-17' },
-//     // Add more trips as needed
-//   ];
-//   selectedTrip: any;
-//   selectedIndex: number | null = null; // Initialize selected index
-//   currentIndex = 0; // Initialize current index
-//   numTripsToShow = 4; // Number of trips to display at once
-
-//   selectTrip(index: number) {
-//     this.selectedIndex = index;
-//     this.selectedTrip = this.trips[index];
-//   }
-
-//   next() {
-//     if (this.currentIndex < this.trips.length - this.numTripsToShow) {
-//       this.currentIndex++;
-//       if (
-//         this.selectedIndex !== null &&
-//         this.selectedIndex < this.currentIndex
-//       ) {
-//         this.selectedIndex = null; // Deselect if the selected trip is no longer visible
-//       }
-//     }
-//   }
-
-//   previous() {
-//     if (this.currentIndex > 0) {
-//       this.currentIndex--;
-//       if (
-//         this.selectedIndex !== null &&
-//         this.selectedIndex >= this.currentIndex + this.numTripsToShow
-//       ) {
-//         this.selectedIndex = null; // Deselect if the selected trip is no longer visible
-//       }
-//     }
-//   }
-
-//   mouseSelect(index: number) {
-//     this.selectTrip(index);
-//   }
-// }
