@@ -12,7 +12,12 @@ import { ModalWindowComponent } from '../modal-window/modal-window.component';
 })
 export class TripListComponent {
   trips = [
-    { destination: 'Madrid', startDate: '2024-03-05', endDate: '2024-03-10' },
+    {
+      destination: 'Madrid',
+      startDate: '2024-03-05',
+      endDate: '2024-03-10',
+      image: 'madrid1.png',
+    },
   ];
 
   predefinedCities = ['Madrid', 'Barcelona', 'Paris', 'London'];
@@ -22,6 +27,7 @@ export class TripListComponent {
   filteredTrips: any[];
   todayForecast: any;
   countdownTimer: string = '';
+  tripSelected: boolean = false;
 
   constructor(private dialog: MatDialog) {
     this.filteredTrips = this.trips.slice();
@@ -45,6 +51,7 @@ export class TripListComponent {
 
   selectTrip(trip: any) {
     this.selectedTrip = trip;
+    this.tripSelected = true;
     this.fetchForecast(trip.destination, trip.startDate, trip.endDate);
     this.fetchTodayForecast(trip.destination);
     this.calculateCountdown(trip.startDate);
@@ -118,5 +125,26 @@ export class TripListComponent {
     this.filteredTrips.sort((a, b) => {
       return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
     });
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+    return dayOfWeek;
+  }
+
+  getWeatherEmoji(condition: string): string {
+    switch (condition.toLowerCase()) {
+      case 'clear':
+        return '☀️'; // Sunny
+      case 'partially cloudy':
+        return '⛅'; // Partially cloudy
+      case 'rain':
+        return '🌧️'; // Rainy
+      case 'overcast':
+        return '☁️'; // Overcast
+      default:
+        return ''; // Return empty string if no emoji is available
+    }
   }
 }
