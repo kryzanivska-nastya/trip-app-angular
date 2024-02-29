@@ -1,44 +1,63 @@
+<div>
+  <h3>Weather <b>Forecast</b></h3>
+  <br />
+  <div class="search">
+    <input
+      type="text"
+      placeholder="🔍  Search your trip"
+      (input)="search($event)"
+    />
+  </div>
+  <br />
+</div>
+
 <div class="container">
   <div class="trip-list">
-    <h3>Weather <b>Forecast</b></h3>
-    <br />
-    <div class="search">
-      <input
-        type="text"
-        placeholder="🔍  Search your trip"
-        (input)="search($event)"
-      />
-    </div>
-    <br />
     <ul>
-      <li *ngFor="let trip of filteredTrips" (click)="selectTrip(trip)">
+      <li
+        *ngFor="let trip of filteredTrips; let i = index"
+        (click)="selectTrip(trip, i)"
+      >
         <div class="image-container">
           <img
-            [src]="'assets/' + trip.image"
+            [src]="getDynamicImageUrl(trip.image)"
             alt="{{ trip.destination }} Image"
           />
         </div>
 
-        <div [class.selected]="tripSelected" class="trip-destination">
+        <div
+          [class.selected]="i === lastSelectedIndex"
+          class="trip-destination"
+        >
           <b>{{ trip.destination }}</b> <br />
           {{ trip.startDate }} - {{ trip.endDate }}
         </div>
       </li>
     </ul>
+
+    <button class="add-trip-button" (click)="openAddTripModal()">
+      + <br />
+      Add Trip
+    </button>
   </div>
-
-  <button (click)="openAddTripModal()">Add Trip</button>
-
-  <div
-    class="forecast-details"
-    *ngIf="selectedTrip && forecasts[selectedTrip.destination]"
-  >
-    <h2>Forecast for {{ selectedTrip.destination }}</h2>
+</div>
+<div class="week" *ngIf="selectedTrip"><br />Week</div>
+<div
+  class="forecast-details"
+  *ngIf="selectedTrip && forecasts[selectedTrip.destination]"
+>
+  <div class="forecast-days">
     <ul>
-      <li *ngFor="let day of forecasts[selectedTrip.destination]?.days">
-        {{ formatDate(day.datetime) }}
-        {{ getWeatherEmoji(day.conditions) }}
-        {{ day.tempmax }}°C / {{ day.tempmin }}°C
+      <li
+        *ngFor="let day of forecasts[selectedTrip.destination]?.days"
+        class="forecast-day"
+      >
+        <span>{{ formatDate(day.datetime) }}</span>
+        <br /><br />
+        <br />
+        <span class="emoji">{{ getWeatherEmoji(day.conditions) }}</span>
+        <br /><br />
+        <span>{{ day.tempmax }}/{{ day.tempmin }}</span>
       </li>
     </ul>
   </div>

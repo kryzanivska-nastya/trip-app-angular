@@ -11,11 +11,11 @@ import { ModalWindowComponent } from '../modal-window/modal-window.component';
   styleUrl: './trip-list.component.css',
 })
 export class TripListComponent {
-  trips = [
+  trips: any[] = [
     {
       destination: 'Madrid',
       startDate: '2024-03-05',
-      endDate: '2024-03-10',
+      endDate: '2024-03-11',
       image: 'madrid1.png',
     },
   ];
@@ -28,10 +28,19 @@ export class TripListComponent {
   todayForecast: any;
   countdownTimer: string = '';
   tripSelected: boolean = false;
+  lastSelectedIndex: number = -1;
 
   constructor(private dialog: MatDialog) {
     this.filteredTrips = this.trips.slice();
     this.sortTripsByStartDate();
+  }
+
+  ngOnInit(): void {
+    const storedTrips = localStorage.getItem('trips');
+    if (storedTrips) {
+      this.trips = JSON.parse(storedTrips);
+      this.filteredTrips = this.trips.slice();
+    }
   }
 
   openAddTripModal() {
@@ -43,18 +52,22 @@ export class TripListComponent {
     });
 
     dialogRef.componentInstance.tripAdded.subscribe((newTrip: any) => {
+      newTrip.image = `${newTrip.destination.toLowerCase()}.jpeg`;
       this.trips.push(newTrip);
       this.filteredTrips = this.trips.slice();
       this.sortTripsByStartDate();
+
+      localStorage.setItem('trips', JSON.stringify(this.trips));
     });
   }
 
-  selectTrip(trip: any) {
+  selectTrip(trip: any, index: number) {
     this.selectedTrip = trip;
     this.tripSelected = true;
     this.fetchForecast(trip.destination, trip.startDate, trip.endDate);
     this.fetchTodayForecast(trip.destination);
     this.calculateCountdown(trip.startDate);
+    this.lastSelectedIndex = index;
   }
 
   fetchForecast(city: string, startDate: string, endDate: string) {
@@ -136,15 +149,21 @@ export class TripListComponent {
   getWeatherEmoji(condition: string): string {
     switch (condition.toLowerCase()) {
       case 'clear':
-        return '☀️'; // Sunny
+        return '☀️';
       case 'partially cloudy':
-        return '⛅'; // Partially cloudy
+        return '⛅';
       case 'rain':
-        return '🌧️'; // Rainy
+        return '🌧️';
+      case 'rain, overcast':
+        return '🌧️';
       case 'overcast':
-        return '☁️'; // Overcast
+        return '☁️';
       default:
-        return ''; // Return empty string if no emoji is available
+        return '☀️';
     }
+  }
+
+  getDynamicImageUrl(imageName: string): string {
+    return `assets/${imageName}`;
   }
 }

@@ -1,64 +1,122 @@
 .container {
-  width: 100%; 
-  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .trip-list {
-
-  /* display: flex; */
+  display: flex;
   white-space: nowrap;
-  
+  flex-wrap: wrap;
 }
 
-.trip-list ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 10px;
+h3{
+  padding:30px 10px 0px ;
 }
 
-.trip-list li {
-  display: inline-block;
-  padding: 0;
-  border: 1px solid #ccc;
-  margin-right: 10px;
+.trip-container {
+  flex: 0 0 auto; 
+  margin-right: 20px; 
+ 
 }
 
-
-.image-container {
-  width: 100%; /* Adjust as needed */
-  height: 150px; /* Adjust as needed */
-  overflow: hidden;
+.weatherEmoji{
+ width: 100px;
+ height: 100px;
 }
 
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.selected {
-  border: 1.5px solid rgb(145, 207, 228);
-}
-
-.trip-destination{
-  padding: 20px;
-}
-
-input{
-  
- color: black;
-  padding: 60px;
+.week{
   margin: 10px;
   font-size: 16px;
- line-height: 1.5;
-border: none;
-background: #d4e0eb6b;
-background-repeat: no-repeat;
-background-position: 10px 10px;
-background-size: 20px 20px;
-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
-border-radius: 6px;
-width: 200px;
-padding: .5em 1em .5em 1em;
+  margin-bottom: 10px;
+  
 }
+.forecast-details {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.forecast-day {
+  list-style-type: none; 
+  margin: 40px ;
+}
+
+.forecast-day span.emoji {
+  font-size: 4em; 
+}
+
+.forecast-days ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0; 
+    margin: 0; 
+    justify-content: space-between;
+  }
+
+
+  .trip-list ul {
+    list-style-type: none;
+    padding: 0;
+     margin: 10px;
+  }
+
+  .trip-list li {
+    display: inline-block;
+    padding: 0;
+    border: 1px solid #ccc;
+    margin-right: 3em;
+  }
+
+
+  .image-container {
+    width: 100%; 
+    height: 150px; 
+   overflow: hidden;
+  
+  }
+
+  .image-container img {
+    width: 201.5px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .selected {
+    border: 1.5px solid rgb(145, 207, 228);
+  }
+
+  .trip-destination{
+    padding: 20px;
+  }
+
+  input{
+    color: black;
+    padding: 60px;
+    margin: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: none;
+    background: #d4e0eb6b;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    background-size: 20px 20px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
+    border-radius: 6px;
+    width: 216px;
+    padding: .5em 1em .5em 1em;
+  }
+
+  .add-trip-button {
+    width: 200px; 
+    height: 150px; 
+    background-color: #d4e0eb6b; 
+    color: rgb(0, 0, 0);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    margin-top: 10.5px;
+    justify-content: center;
+    align-items: center;
+  }
+
 

@@ -1,0 +1,107 @@
+.modal-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+  }
+  
+  hr{
+    width: 400px;
+    color: #9a9a9a27;
+    position: relative;
+    left: -20px
+  }
+
+  .close-button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+  }
+  
+  .close-button:hover {
+    color: #333;
+  }
+  
+  input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+  }
+  input[type=date]:focus::-webkit-datetime-edit {
+    color: #6e6e6ebc !important;
+  }
+
+  .red-sign{
+    color: red;
+  }
+
+  .modal-body {
+    margin-top: 20px;
+    padding: 10px;
+   
+  }
+  
+  .modal-body label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .modal-body input,
+  .modal-body select {
+    width: calc(100% - 14px);
+    padding: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+
+  .modal-body select{
+    width: 342px;
+    color: #6e6e6ebc;
+  }
+  
+  .modal-footer {
+    margin-top: 20px;
+    text-align: right;
+   
+  }
+  
+  .add-trip-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .add-trip-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-button {
+    background-color: white;
+    color: #000000;
+    border: 1px solid #6e6e6ebc;
+    padding: 9px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .cancel-button:hover {
+    background-color: #f5f5f5;
+  }
+  
