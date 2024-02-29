@@ -29,6 +29,10 @@ export class TripListComponent {
   countdownTimer: string = '';
   tripSelected: boolean = false;
   lastSelectedIndex: number = -1;
+  days: number = 0;
+  hours: number = 0;
+  minutes: number = 0;
+  seconds: number = 0;
 
   constructor(private dialog: MatDialog) {
     this.filteredTrips = this.trips.slice();
@@ -114,15 +118,13 @@ export class TripListComponent {
     const timeDifference = tripStartDate.getTime() - currentDate.getTime();
 
     let remainingTime = timeDifference / 1000;
-    const days = Math.floor(remainingTime / (3600 * 24));
-    remainingTime -= days * 3600 * 24;
-    const hours = Math.floor(remainingTime / 3600);
-    remainingTime -= hours * 3600;
-    const minutes = Math.floor(remainingTime / 60);
-    remainingTime -= minutes * 60;
-    const seconds = Math.floor(remainingTime);
-
-    this.countdownTimer = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    this.days = Math.floor(remainingTime / (3600 * 24));
+    remainingTime -= this.days * 3600 * 24;
+    this.hours = Math.floor(remainingTime / 3600);
+    remainingTime -= this.hours * 3600;
+    this.minutes = Math.floor(remainingTime / 60);
+    remainingTime -= this.minutes * 60;
+    this.seconds = Math.floor(remainingTime);
   }
 
   search(event: any) {

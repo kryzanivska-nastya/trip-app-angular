@@ -8,6 +8,4 @@ import { Component, Input } from '@angular/core';
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css',
 })
-export class WeatherDisplayComponent {
-  @Input() trip: any;
-}
+export class WeatherDisplayComponent {}

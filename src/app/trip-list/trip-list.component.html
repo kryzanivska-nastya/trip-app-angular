@@ -57,21 +57,49 @@
         <br />
         <span class="emoji">{{ getWeatherEmoji(day.conditions) }}</span>
         <br /><br />
-        <span>{{ day.tempmax }}/{{ day.tempmin }}</span>
+        <span>{{ day.tempmax + "°" }}/{{ day.tempmin + "°" }}</span>
       </li>
     </ul>
   </div>
 </div>
 
-<div class="today-forecast" *ngIf="selectedTrip && todayForecast">
-  <h2>Today's Weather in {{ selectedTrip.destination }}</h2>
-  <p>Conditions: {{ todayForecast.conditions }}</p>
-  <p>
-    Temperature: {{ todayForecast.tempmax }}°C / {{ todayForecast.tempmin }}°C
-  </p>
-</div>
-
-<div class="countdown-timer" *ngIf="selectedTrip">
-  <h2>Countdown Timer</h2>
-  <p>{{ countdownTimer }}</p>
+<div class="right-side">
+  <div class="today-forecast" *ngIf="selectedTrip && todayForecast">
+    <div class="today-forecast-block">
+      <div class="today-forecast-display">
+        <br />
+        <h4 class="trip-destination-today-day">
+          {{ formatDate(todayForecast.datetime) }}
+        </h4>
+      </div>
+      <br />
+      <p class="emoji-today-forecast">
+        {{
+          getWeatherEmoji(todayForecast.conditions) +
+            todayForecast.tempmax +
+            "°C"
+        }}
+      </p>
+      <br />
+      <h2 class="trip-destination-today">{{ selectedTrip.destination }}</h2>
+    </div>
+    <div class="countdown-timer" *ngIf="selectedTrip">
+      <div class="countdown-item">
+        <p>{{ days }}</p>
+        <p>days</p>
+      </div>
+      <div class="countdown-item">
+        <p>{{ hours }}</p>
+        <p>hours</p>
+      </div>
+      <div class="countdown-item">
+        <p>{{ minutes }}</p>
+        <p>minutes</p>
+      </div>
+      <div class="countdown-item">
+        <p>{{ seconds }}</p>
+        <p>seconds</p>
+      </div>
+    </div>
+  </div>
 </div>
