@@ -1,174 +1,217 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
+.container {
+  max-width: 980px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.trip-list {
+  display: flex;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+h3 {
+  padding: 30px 10px 0;
+  margin: 0;
+}
+
+.trip-container {
+  flex: 0 0 auto;
+  margin-right: 20px;
+}
+
+.weatherEmoji {
+  width: 80px;
+  height: 80px;
+}
+
+.week {
+  margin: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.forecast-details {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.forecast-day {
+  list-style-type: none;
+  margin: 25px;
+}
+
+.forecast-day span.emoji {
+  font-size: 4em;
+}
+
+.forecast-days ul {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  justify-content: space-between;
+}
+
+.trip-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px;
+}
+
+.trip-list li {
+  display: inline-block;
+  padding: 0;
+  border: 1px solid #ccc;
+  margin-right: 3em;
+}
+
+.image-container {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 201.5px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.selected {
+  border: 1.5px solid rgb(145, 207, 228);
+}
+
+.trip-destination {
+  padding: 20px;
+}
+
+input {
+  color: black;
+  padding: 60px;
+  margin: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border: none;
+  background: #d4e0eb6b;
+  background-repeat: no-repeat;
+  background-position: 10px 10px;
+  background-size: 20px 20px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
+  border-radius: 6px;
+  width: 216px;
+  padding: .5em 1em .5em 1em;
+}
+
+.add-trip-button {
+  width: 200px;
+  height: 150px;
+  background-color: #d4e0eb6b;
+  color: rgb(0, 0, 0);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  margin-top: 10.5px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.today-forecast {
+  background-color: rgb(98, 98, 98);
+  padding-top: 15em;
+  padding-left: 10em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+}
+
+.countdown-item {
+  display: grid;
+  text-align: center;
+  margin-left: 8px;
+  position: relative;
+  top: -130px;
+  right: 70.5px;
+}
+
+.countdown-item p {
+  margin: 0;
+}
+
+.today-forecast-block {
+  padding-top: 3.5em;
+  padding-bottom: 20em;
+  position: relative;
+  top: -130px;
+  right: 80px;
+}
+
+.emoji-today-forecast {
+  font-size: 50px;
+}
+
+.trip-destination-today {
+  position: relative;
+  right: -80px;
+  width: 0px;
+}
+
+.trip-destination-today-day {
+  position: relative;
+  right: -70px;
+}
+
+@media only screen and (max-width: 768px) {
   .container {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-  }
-  
-  .trip-list {
-    display: flex;
-    white-space: nowrap;
-    flex-wrap: wrap;
-  }
-  
-  h3 {
-    padding: 30px 10px 0px;
-  }
-  
-  .trip-container {
-    flex: 0 0 auto;
-    margin-right: 20px;
-  }
-  
-  .weatherEmoji {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .week {
-    margin: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .forecast-details {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  
-  .forecast-day {
-    list-style-type: none;
-    margin: 25px;
-  }
-  
-  .forecast-day span.emoji {
-    font-size: 4em;
-  }
-  
-  .forecast-days ul {
-    display: flex;
-    flex-direction: row;
-    padding: 0;
-    margin: 0;
-    justify-content: space-between;
-  }
-  
-  .trip-list ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 10px;
-  }
-  
-  .trip-list li {
-    display: inline-block;
-    padding: 0;
-    border: 1px solid #ccc;
-    margin-right: 3em;
-  }
-  
-  .image-container {
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
-  }
-  
-  .image-container img {
-    width: 201.5px;
-    height: 150px;
-    object-fit: cover;
-  }
-  
-  .selected {
-    border: 1.5px solid rgb(145, 207, 228);
-  }
-  
-  .trip-destination {
-    padding: 20px;
-  }
-  
-  input {
-    color: black;
-    padding: 60px;
-    margin: 10px;
-    font-size: 16px;
-    line-height: 1.5;
-    border: none;
-    background: #d4e0eb6b;
-    background-repeat: no-repeat;
-    background-position: 10px 10px;
-    background-size: 20px 20px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
-    border-radius: 6px;
-    width: 216px;
-    padding: .5em 1em .5em 1em;
-  }
-  
-  .add-trip-button {
-    width: 200px;
-    height: 150px;
-    background-color: #d4e0eb6b;
-    color: rgb(0, 0, 0);
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    margin-top: 10.5px;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
   }
-  
-  .right-side {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
+
+  .trip-container {
+    margin-right: 0;
+    margin-bottom: 20px;
   }
-  
-  .today-forecast {
-    background-color: rgb(98, 98, 98);
-    padding-top: 15em;
-    padding-left: 10em;
+
+  .trip-list li {
+    margin-right: 0;
   }
-  
-  .countdown-timer {
-    padding-top: 11.4em;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .countdown-item {
-    display: grid;
-    text-align: center;
-    margin-left: 10px;
-    position: relative;
-    top: -130px;
-    right: 62.5px;
-  }
-  
-  .countdown-item p {
-    margin: 0;
-  }
-  
+
   .today-forecast-block {
-    padding-top: 15.9em;
-    position: relative;
-    top: -130px;
-    right: 80px;
+    padding-top: 2em;
+    padding-bottom: 5em;
+    right: 0;
   }
 
-  .emoji-today-forecast{
-    font-size: 50px;
+  .countdown-item {
+    margin-left: 0;
+    top: 0;
+    right: 0;
   }
 
-  .trip-destination-today{
-    position: relative;
-    right: -80px;
-    width: 0px;
+  .trip-destination-today,
+  .trip-destination-today-day {
+    right: 0;
   }
 
-  .trip-destination-today-day{
-    position: relative;
-    right: -70px;
+  input {
+    width: 100%;
   }
+
+  .add-trip-button {
+    width: 100%;
+  }
+}
